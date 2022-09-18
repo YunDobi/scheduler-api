@@ -1,5 +1,5 @@
 WITH days(day) AS (
-  VALUES ( 'Monday' ), ( 'Tuesday' ), ( 'Wednesday' ), ( 'Thursday' ), ( 'Friday' )
+  VALUES ( 'Monday' ), ( 'Tuesday' ), ( 'Wednesday' ), ( 'Thursday' ), ( 'Friday' ), ('Saturday'), ('Sunday')
 )
 INSERT INTO days (name)
 SELECT day FROM days;
