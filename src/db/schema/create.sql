@@ -1,42 +1,35 @@
-DROP TABLE IF EXISTS available_interviewers CASCADE;
-DROP TABLE IF EXISTS interviews CASCADE;
-DROP TABLE IF EXISTS interviewers CASCADE;
-DROP TABLE IF EXISTS appointments CASCADE;
+DROP TABLE IF EXISTS available_volunteers CASCADE;
+DROP TABLE IF EXISTS events CASCADE;
+DROP TABLE IF EXISTS volunteers CASCADE;
+DROP TABLE IF EXISTS timeslots CASCADE;
 DROP TABLE IF EXISTS days CASCADE;
-DROP TABLE IF EXISTS waitlist CASCADE;
 
 CREATE TABLE days (
   id SERIAL PRIMARY KEY NOT NULL,
   name VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE appointments (
+CREATE TABLE timeslots (
   id SERIAL PRIMARY KEY NOT NULL,
   time VARCHAR(255) NOT NULL,
   day_id INTEGER REFERENCES days(id) ON DELETE CASCADE
 );
 
-CREATE TABLE interviewers (
+CREATE TABLE volunteers (
   id SERIAL PRIMARY KEY NOT NULL,
   name VARCHAR(255) NOT NULL,
   avatar VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE interviews (
+CREATE TABLE events (
   id SERIAL PRIMARY KEY NOT NULL,
-  student VARCHAR(255) NOT NULL,
-  interviewer_id INTEGER REFERENCES interviewers(id) ON DELETE CASCADE,
-  appointment_id INTEGER UNIQUE REFERENCES appointments(id) ON DELETE CASCADE
+  volunteers_id INTEGER[2],
+  timeslots_id INTEGER UNIQUE REFERENCES timeslots(id) ON DELETE CASCADE,
+  waitlist INTEGER[3]
 );
 
-CREATE TABLE waitlist (
+CREATE TABLE available_volunteers (
   id SERIAL PRIMARY KEY NOT NULL,
   day_id INTEGER REFERENCES days(id) ON DELETE CASCADE,
-  interviewer_id INTEGER REFERENCES interviewers(id) ON DELETE CASCADE
-);
-
-CREATE TABLE available_interviewers (
-  id SERIAL PRIMARY KEY NOT NULL,
-  day_id INTEGER REFERENCES days(id) ON DELETE CASCADE,
-  interviewer_id INTEGER REFERENCES interviewers(id) ON DELETE CASCADE
+  volunteers_id INTEGER REFERENCES volunteers(id) ON DELETE CASCADE
 );

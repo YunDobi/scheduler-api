@@ -5,16 +5,16 @@ module.exports = (db, updateAppointment) => {
     db.query(
       `
       SELECT
-        appointments.id,
-        appointments.time,
-        CASE WHEN interviews.id IS NULL
+        timeslots.id,
+        timeslots.time,
+        CASE WHEN events.id IS NULL
         THEN NULL
-        ELSE json_build_object('student', interviews.student, 'interviewer', interviews.interviewer_id)
-        END AS interview
-      FROM appointments
-      LEFT JOIN interviews ON interviews.appointment_id = appointments.id
-      GROUP BY appointments.id, interviews.id, interviews.student, interviews.interviewer_id
-      ORDER BY appointments.id
+        ELSE json_build_object( events.volunteers_id, 'volunteers', events.waitlist)
+        END AS volunteer
+      FROM timeslots
+      LEFT JOIN events ON events.timeslots_id = timeslots.id
+      GROUP BY timeslots.id, events.id
+      ORDER BY timeslots.id
     `
     ).then(({ rows: appointments }) => {
       response.json(
