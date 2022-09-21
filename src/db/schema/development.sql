@@ -7,10 +7,10 @@ SELECT day FROM days;
 WITH times(time) AS (
 	VALUES ('12pm'),('12:30pm'), ('1pm'),('1:30pm'), ('2pm'), ('2:30pm'), ('3pm'), ('3:30pm'), ('4:30pm'), ('4pm')
 )
-INSERT INTO appointments (time, day_id)
+INSERT INTO timeslots (time, day_id)
 SELECT time, id as day_id FROM days, times;
 
-INSERT INTO interviewers (name, avatar)
+INSERT INTO volunteers (name, avatar)
 VALUES
   ('Sylvia Palmer', 'https://i.imgur.com/LpaY82x.png'),
   ('Tori Malcolm', 'https://i.imgur.com/Nmx0Qxo.png'),
@@ -23,31 +23,31 @@ VALUES
   ('Lindsay Chu', 'https://i.imgur.com/nPywAp1.jpg'),
   ('Samantha Stanic', 'https://i.imgur.com/okB9WKC.jpg');
 
-INSERT INTO available_interviewers (day_id, interviewer_id)
-SELECT 1 as day_id, interviewers.interviewer_id FROM ( SELECT id AS interviewer_id FROM interviewers ORDER BY RANDOM() LIMIT 2 ) interviewers;
+-- INSERT INTO available_interviewers (day_id, interviewer_id)
+-- SELECT 1 as day_id, interviewers.interviewer_id FROM ( SELECT id AS interviewer_id FROM interviewers ORDER BY RANDOM() LIMIT 2 ) interviewers;
 
-INSERT INTO available_interviewers (day_id, interviewer_id)
-SELECT 2 as day_id, interviewers.interviewer_id FROM ( SELECT id AS interviewer_id FROM interviewers ORDER BY RANDOM() LIMIT 2 ) interviewers;
+-- INSERT INTO available_interviewers (day_id, interviewer_id)
+-- SELECT 2 as day_id, interviewers.interviewer_id FROM ( SELECT id AS interviewer_id FROM interviewers ORDER BY RANDOM() LIMIT 2 ) interviewers;
 
-INSERT INTO available_interviewers (day_id, interviewer_id)
-SELECT 3 as day_id, interviewers.interviewer_id FROM ( SELECT id AS interviewer_id FROM interviewers ORDER BY RANDOM() LIMIT 2 ) interviewers;
+-- INSERT INTO available_interviewers (day_id, interviewer_id)
+-- SELECT 3 as day_id, interviewers.interviewer_id FROM ( SELECT id AS interviewer_id FROM interviewers ORDER BY RANDOM() LIMIT 2 ) interviewers;
 
-INSERT INTO available_interviewers (day_id, interviewer_id)
-SELECT 4 as day_id, interviewers.interviewer_id FROM ( SELECT id AS interviewer_id FROM interviewers ORDER BY RANDOM() LIMIT 2 ) interviewers;
+-- INSERT INTO available_interviewers (day_id, interviewer_id)
+-- SELECT 4 as day_id, interviewers.interviewer_id FROM ( SELECT id AS interviewer_id FROM interviewers ORDER BY RANDOM() LIMIT 2 ) interviewers;
 
-INSERT INTO available_interviewers (day_id, interviewer_id)
-SELECT 5 as day_id, interviewers.interviewer_id FROM ( SELECT id AS interviewer_id FROM interviewers ORDER BY RANDOM() LIMIT 2 ) interviewers;
+-- INSERT INTO available_interviewers (day_id, interviewer_id)
+-- SELECT 5 as day_id, interviewers.interviewer_id FROM ( SELECT id AS interviewer_id FROM interviewers ORDER BY RANDOM() LIMIT 2 ) interviewers;
 
-INSERT INTO available_interviewers (day_id, interviewer_id)
-SELECT 6 as day_id, interviewers.interviewer_id FROM ( SELECT id AS interviewer_id FROM interviewers ORDER BY RANDOM() LIMIT 2 ) interviewers;
+-- INSERT INTO available_interviewers (day_id, interviewer_id)
+-- SELECT 6 as day_id, interviewers.interviewer_id FROM ( SELECT id AS interviewer_id FROM interviewers ORDER BY RANDOM() LIMIT 2 ) interviewers;
 
-INSERT INTO available_interviewers (day_id, interviewer_id)
-SELECT 7 as day_id, interviewers.interviewer_id FROM ( SELECT id AS interviewer_id FROM interviewers ORDER BY RANDOM() LIMIT 2 ) interviewers;
+-- INSERT INTO available_interviewers (day_id, interviewer_id)
+-- SELECT 7 as day_id, interviewers.interviewer_id FROM ( SELECT id AS interviewer_id FROM interviewers ORDER BY RANDOM() LIMIT 2 ) interviewers;
 
 
---------------------------------------------------------------------------------------
-INSERT INTO waitlist (day_id, interviewer_id)
-SELECT 1 as day_id, interviewers.interviewer_id FROM ( SELECT id AS interviewer_id FROM interviewers ORDER BY RANDOM() LIMIT 3 ) interviewers;
+-- --------------------------------------------------------------------------------------
+-- INSERT INTO waitlist (day_id, interviewer_id)
+-- SELECT 1 as day_id, interviewers.interviewer_id FROM ( SELECT id AS interviewer_id FROM interviewers ORDER BY RANDOM() LIMIT 3 ) interviewers;
 
 -- WITH
 -- appointments AS (
