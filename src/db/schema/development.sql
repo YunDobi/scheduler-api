@@ -5,7 +5,7 @@ INSERT INTO days (name)
 SELECT day FROM days;
 
 WITH times(time) AS (
-	VALUES ('12pm'),('12:30pm'), ('1pm'),('1:30pm'), ('2pm'), ('2:30pm'), ('3pm'), ('3:30pm'), ('4:30pm'), ('4pm')
+	VALUES ('12pm'),('12:30pm'), ('1pm'),('1:30pm'), ('2pm'), ('2:30pm'), ('3pm'), ('3:30pm'), ('4pm'), ('4:30pm')
 )
 INSERT INTO timeslots (time, day_id)
 SELECT time, id as day_id FROM days, times;
