@@ -7,11 +7,11 @@ module.exports = (db, updateAppointment) => {
       SELECT
         timeslots.id,
         timeslots.time,
+        timeslots.day_id,
         CASE WHEN events.id IS NULL
         THEN NULL
-        ELSE json_build_object( events.volunteers_id, 'volunteers', events.waitlist)
-        END AS volunteer,
-        timeslots.day_id
+        ELSE json_build_object('volunteers', events.volunteers_id, 'waitlist', events.waitlist)
+        END AS volunteer
       FROM timeslots
       LEFT JOIN events ON events.timeslots_id = timeslots.id
       GROUP BY timeslots.id, events.id

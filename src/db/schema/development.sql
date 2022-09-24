@@ -23,6 +23,10 @@ VALUES
   ('Lindsay Chu', 'https://i.imgur.com/nPywAp1.jpg'),
   ('Samantha Stanic', 'https://i.imgur.com/okB9WKC.jpg');
 
+INSERT INTO events (volunteers_id, timeslots_id, waitlist)
+VALUES ('{"1","2"}', 1, '{"3","4","5"}')
+
+
 -- INSERT INTO available_interviewers (day_id, interviewer_id)
 -- SELECT 1 as day_id, interviewers.interviewer_id FROM ( SELECT id AS interviewer_id FROM interviewers ORDER BY RANDOM() LIMIT 2 ) interviewers;
 
