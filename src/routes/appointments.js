@@ -62,7 +62,7 @@ module.exports = (db, updateAppointment) => {
       return;
     }
 
-    db.query(`DELETE FROM events WHERE id = $1::integer`, [
+    db.query(`DELETE FROM events WHERE events.timeslots_id = $1::integer`, [
       request.params.id
     ]).then(() => {
       setTimeout(() => {
