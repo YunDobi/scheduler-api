@@ -7,11 +7,11 @@ module.exports = db => {
       SELECT
         days.id,
         days.name,
-        COUNT(day_id) as spots
+        count(day_id) as spots
       FROM days
       JOIN timeslots ON timeslots.day_id = days.id
       GROUP BY days.id
-      ORDER BY days.id
+      ORDER BY days.id 
     `
     ).then(({ rows: days }) => {
       response.json(days);
@@ -20,3 +20,6 @@ module.exports = db => {
 
   return router;
 };
+
+
+//select count(events.day_id) as spots from days left join events on events.day_id = days.id group by days.id;
