@@ -7,9 +7,11 @@ module.exports = (db, updateAppointment) => {
       SELECT
         timeslots.id,
         timeslots.time,
+        timeslots.day_id,
         CASE WHEN events.id IS NULL
         THEN NULL
-        ELSE json_build_object( events.volunteers_id, 'volunteers', events.waitlist)
+        ELSE json_build_object('volunteers', 
+        events.volunteers_id, 'waitlist', events.waitlist)
         END AS volunteer
       FROM timeslots
       LEFT JOIN events ON events.timeslots_id = timeslots.id
@@ -27,20 +29,23 @@ module.exports = (db, updateAppointment) => {
   });
 
   router.put("/appointments/:id", (request, response) => {
+    console.log(request.body);
     if (process.env.TEST_ERROR) {
       setTimeout(() => response.status(500).json({}), 1000);
       return;
     }
 
-    const { student, interviewer } = request.body.interview;
+    const { volunteers, waitlist } = request.body.volunteer;
 
     db.query(
       `
-      INSERT INTO interviews (student, interviewer_id, appointment_id) VALUES ($1::text, $2::integer, $3::integer)
-      ON CONFLICT (appointment_id) DO
-      UPDATE SET student = $1::text, interviewer_id = $2::integer
+      INSERT INTO events (volunteers_id, waitlist, day_id, timeslots_id)
+       VALUES 
+       ($1::integer[], $2::integer[], $3, $4)
+      ON CONFLICT (id) DO
+      UPDATE SET volunteers_id = $1::integer[], waitlist = $2::integer[]
     `,
-      [student, interviewer, Number(request.params.id)]
+      [volunteers, waitlist, request.body.day_id, request.body.id ]
     )
       .then(() => {
         setTimeout(() => {
@@ -57,7 +62,7 @@ module.exports = (db, updateAppointment) => {
       return;
     }
 
-    db.query(`DELETE FROM interviews WHERE appointment_id = $1::integer`, [
+    db.query(`DELETE FROM events WHERE events.timeslots_id = $1::integer`, [
       request.params.id
     ]).then(() => {
       setTimeout(() => {

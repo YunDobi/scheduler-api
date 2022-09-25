@@ -5,7 +5,7 @@ INSERT INTO days (name)
 SELECT day FROM days;
 
 WITH times(time) AS (
-	VALUES ('12pm'),('12:30pm'), ('1pm'),('1:30pm'), ('2pm'), ('2:30pm'), ('3pm'), ('3:30pm'), ('4:30pm'), ('4pm')
+	VALUES ('12pm'),('12:30pm'), ('1pm'),('1:30pm'), ('2pm'), ('2:30pm'), ('3pm'), ('3:30pm'), ('4pm'), ('4:30pm')
 )
 INSERT INTO timeslots (time, day_id)
 SELECT time, id as day_id FROM days, times;
@@ -22,6 +22,10 @@ VALUES
   ('Viktor Jain', 'https://i.imgur.com/iHq8K8Z.jpg'),
   ('Lindsay Chu', 'https://i.imgur.com/nPywAp1.jpg'),
   ('Samantha Stanic', 'https://i.imgur.com/okB9WKC.jpg');
+
+INSERT INTO events (volunteers_id, timeslots_id, waitlist, day_id)
+VALUES ('{"1","2"}', 1, '{"3","4","5"}', 1)
+
 
 -- INSERT INTO available_interviewers (day_id, interviewer_id)
 -- SELECT 1 as day_id, interviewers.interviewer_id FROM ( SELECT id AS interviewer_id FROM interviewers ORDER BY RANDOM() LIMIT 2 ) interviewers;
