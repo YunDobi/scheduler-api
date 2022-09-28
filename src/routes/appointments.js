@@ -38,7 +38,7 @@ module.exports = (db, updateAppointment) => {
     const { volunteers, waitlist } = request.body.volunteer;
 
 
-    if (volunteers.length === 0 && waitlist.length === 0) {
+    if (volunteers === undefined || volunteers.length === 0 && waitlist.length === 0) {
       console.log("create");
 
       db.query(
