@@ -37,56 +37,66 @@ module.exports = (db, updateAppointment) => {
 
     const { volunteers, waitlist } = request.body.volunteer;
 
-    db.query(
-      `
-      INSERT INTO events (volunteers_id, waitlist, day_id, timeslots_id)
-       VALUES 
-       ($1::integer[], $2::integer[], $3, $4)
-      ON CONFLICT (id) DO
-      UPDATE SET volunteers_id = $1::integer[], waitlist = $2::integer[]
-    `,
-      [volunteers, waitlist, request.body.day_id, request.body.id ]
-    )
-      .then(() => {
-        setTimeout(() => {
-          response.status(204).json({});
-          updateAppointment(Number(request.params.id), request.body.interview);
-        }, 1000);
-      })
-      .catch(error => console.log(error));
+
+    if (volunteers.length === 0 && waitlist.length === 0) {
+      console.log("create");
+
+      db.query(
+        `
+        INSERT INTO events (volunteers_id, waitlist, day_id, timeslots_id)
+         VALUES 
+         ($1::integer[], $2::integer[], $3, $4)
+        ON CONFLICT (id) DO
+        UPDATE SET volunteers_id = $1::integer[], waitlist = $2::integer[]
+      `,
+        [volunteers, waitlist, request.body.day_id, request.body.id ]
+      )
+        .then(() => {
+          setTimeout(() => {
+            response.status(204).json({});
+            updateAppointment(Number(request.params.id), request.body.interview);
+          }, 1000);
+        })
+        .catch(error => console.log(error));
+
+
+    } else {
+      console.log("edit");
+
+      db.query(
+        `
+        UPDATE events SET volunteers_id = $1::integer[], waitlist = $2::integer[]
+        WHERE day_id = $3 AND timeslots_id = $4
+      `,
+        [volunteers, waitlist, request.body.day_id, request.body.id ]
+      )
+        .then(() => {
+          setTimeout(() => {
+            response.status(204).json({});
+            updateAppointment(Number(request.params.id), request.body.interview);
+          }, 1000);
+        })
+        .catch(error => console.log(error));
+    }
+
+    // db.query(
+    //   `
+    //   INSERT INTO events (volunteers_id, waitlist, day_id, timeslots_id)
+    //    VALUES 
+    //    ($1::integer[], $2::integer[], $3, $4)
+    //   ON CONFLICT (id) DO
+    //   UPDATE SET volunteers_id = $1::integer[], waitlist = $2::integer[]
+    // `,
+    //   [volunteers, waitlist, request.body.day_id, request.body.id ]
+    // )
+    //   .then(() => {
+    //     setTimeout(() => {
+    //       response.status(204).json({});
+    //       updateAppointment(Number(request.params.id), request.body.interview);
+    //     }, 1000);
+    //   })
+    //   .catch(error => console.log(error));
   });
-
-
-  // router.post("/appointments/:id", (request, response) => {
-  //   console.log("post",request.body);
-  //   if (process.env.TEST_ERROR) {
-  //     setTimeout(() => response.status(500).json({}), 1000);
-  //     return;
-  //   }
-
-  //   const { volunteers, waitlist } = request.body.volunteer;
-
-  //   db.query(
-  //     `
-  //     INSERT INTO events (volunteers_id, waitlist, day_id, timeslots_id)
-  //      VALUES ;
-  //      ($1::integer[], $2::integer[], $3, $4)
-  //     ON CONFLICT (id) DO
-  //     UPDATE SET volunteers_id = $1::integer[], waitlist = $2::integer[]
-  //   `,
-  //     [volunteers, waitlist, request.body.day_id, request.body.id ]
-  //   )
-  //     .then(() => {
-  //       setTimeout(() => {
-  //         response.status(204).json({});
-  //         updateAppointment(Number(request.params.id), request.body.interview);
-  //       }, 1000);
-  //     })
-  //     .catch(error => console.log(error));
-  // });
-
-
-
 
 
   router.delete("/appointments/:id", (request, response) => {
