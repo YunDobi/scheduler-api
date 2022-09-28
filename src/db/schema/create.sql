@@ -23,7 +23,7 @@ CREATE TABLE volunteers (
 
 CREATE TABLE events (
   id SERIAL PRIMARY KEY NOT NULL,
-  timeslots_id INTEGER UNIQUE REFERENCES timeslots(id) ON DELETE CASCADE,
+  timeslots_id INTEGER REFERENCES timeslots(id) ON DELETE CASCADE,
   day_id INTEGER REFERENCES days(id) ON DELETE CASCADE,
   volunteers_id INTEGER[2],
   waitlist INTEGER[3]
