@@ -8,6 +8,7 @@ module.exports = (db, updateAppointment) => {
         timeslots.id,
         timeslots.time,
         timeslots.day_id,
+        events.title,
         CASE WHEN events.id IS NULL
         THEN NULL
         ELSE json_build_object('volunteers', 

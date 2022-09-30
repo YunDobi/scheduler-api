@@ -25,6 +25,7 @@ CREATE TABLE events (
   id SERIAL PRIMARY KEY NOT NULL,
   timeslots_id INTEGER REFERENCES timeslots(id) ON DELETE CASCADE,
   day_id INTEGER REFERENCES days(id) ON DELETE CASCADE,
+  title VARCHAR(255),
   volunteers_id INTEGER[2],
   waitlist INTEGER[3]
 );

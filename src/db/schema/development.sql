@@ -23,8 +23,8 @@ VALUES
   ('Lindsay Chu', 'https://i.imgur.com/nPywAp1.jpg'),
   ('Samantha Stanic', 'https://i.imgur.com/okB9WKC.jpg');
 
-INSERT INTO events (volunteers_id, timeslots_id, waitlist, day_id)
-VALUES ('{"1","2"}', 1, '{"3","4","5"}', 1)
+INSERT INTO events (volunteers_id, timeslots_id, waitlist, day_id, title)
+VALUES ('{"1","2"}', 1, '{"3","4","5"}', 1, 'first appointment')
 
 
 -- INSERT INTO available_interviewers (day_id, interviewer_id)
