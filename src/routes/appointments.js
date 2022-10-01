@@ -44,13 +44,13 @@ module.exports = (db, updateAppointment) => {
 
       db.query(
         `
-        INSERT INTO events (volunteers_id, waitlist, day_id, timeslots_id)
+        INSERT INTO events (volunteers_id, waitlist, day_id, timeslots_id, title)
          VALUES 
-         ($1::integer[], $2::integer[], $3, $4)
+         ($1::integer[], $2::integer[], $3, $4,$5)
         ON CONFLICT (id) DO
         UPDATE SET volunteers_id = $1::integer[], waitlist = $2::integer[]
       `,
-        [volunteers, waitlist, request.body.day_id, request.body.id ]
+        [volunteers, waitlist, request.body.day_id, request.body.id, request.body.title ]
       )
         .then(() => {
           setTimeout(() => {
@@ -66,10 +66,10 @@ module.exports = (db, updateAppointment) => {
 
       db.query(
         `
-        UPDATE events SET volunteers_id = $1::integer[], waitlist = $2::integer[]
+        UPDATE events SET volunteers_id = $1::integer[], waitlist = $2::integer[], title = $5
         WHERE day_id = $3 AND timeslots_id = $4
       `,
-        [volunteers, waitlist, request.body.day_id, request.body.id ]
+        [volunteers, waitlist, request.body.day_id, request.body.id, request.body.title ]
       )
         .then(() => {
           setTimeout(() => {
